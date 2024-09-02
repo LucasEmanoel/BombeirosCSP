@@ -4,90 +4,79 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Solution {
-	/*PSR = */
+	/*PSR = conjunto de variaveis, dominio e restrições*/
 	/* Entrada deve ser convertida em uma estrutura de dados */
-	/* Retornar uma matriz*/
+	/* Retornar todas alocações */
 	public static void main(String[] args) {
-		ArrayList<Alocacao> alocacoes = new ArrayList<Alocacao>();
-		alocacoes = lerEntrada();
+		ArrayList<Pessoa> funcionarios = lerEntrada();
 		
-		for (Alocacao alocacao : alocacoes) {
-			System.out.println(alocacao.toString());
-		}
-		
-		Psr psr = new Psr(alocacoes);
-		ArrayList<String> solucao = pesquisaComRetrocesso(psr);
+		PSR psr = new PSR(funcionarios);
+		Map<Alocacao, Pessoa> solucao = pesquisaComRetrocesso(psr);
 	}
 	
-	public static ArrayList<String> pesquisaComRetrocesso(Psr psr) {
-		ArrayList<String> solution = new ArrayList<>(); 
+	public static Map<Alocacao, Pessoa> pesquisaComRetrocesso(PSR psr) {
+		Map<Alocacao, Pessoa> solution = new HashMap<>(); 
 		return retrocessoRecursivo(solution, psr);
 	}
-	public static ArrayList<String> retrocessoRecursivo(ArrayList<String> solution, Psr psr) {
-		if (solucaoCompleta(solution, psr)) { // criar uma funcao para verificar se esta completa
+	
+	public static Map<Alocacao, Pessoa> retrocessoRecursivo(Map<Alocacao, Pessoa> solution, PSR psr) {
+		if (psr.solucaoCompleta(solution)) { // criar uma funcao para verificar se esta completa
 			return solution;
 		}
 		
-		String valorNaoAtribuido = selecionarVariavelNaoAtribuida(psr);
-		String[] valoresOrdem = valoresDeOrdemNoDominio(psr, solution, valorNaoAtribuido);
+		Pessoa valorNaoAtribuido = selecionarVariavelNaoAtribuida(psr);
+		List<Alocacao> valoresOrdem = valoresDeOrdemNoDominio(psr, solution, valorNaoAtribuido);
 		
-		for (int i = 0; i < valoresOrdem.length; i++) {
-			if(valorEhConsistente(valoresOrdem[i], solution, psr)) {
+		for (Alocacao a : valoresOrdem ) {
+			if(psr.valorEhConsistente(valorNaoAtribuido, a)) { // acredito que devemos verificar se o valor não colide com as restrições
 				
-				valorNaoAtribuido = valoresOrdem[i];
+				solution.put(a, valorNaoAtribuido);
 				boolean inferencia = inferencia(psr, solution, valorNaoAtribuido);
 				
 				if(inferencia) {
 					
-					ArrayList<String> resultado = retrocessoRecursivo(solution, psr);
+					Map<Alocacao, Pessoa> resultado = retrocessoRecursivo(solution, psr);
 					if(resultado != null) {
 						return resultado;
 					}
 				}
 				
 			}
-			solution.remove(valorNaoAtribuido);
+			solution.remove(a);
 		}
 		return null;
 		
 	}
 	
 	
-	private static boolean solucaoCompleta(ArrayList<String> solution, Psr psr) {
+	
+
+
+	private static boolean inferencia(PSR psr, Map<Alocacao, Pessoa> solution, Pessoa valorNaoAtribuido) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	private static boolean valorEhConsistente(String string, ArrayList<String> solution, Psr psr) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private static boolean inferencia(Psr psr, ArrayList<String> solution, String valorNaoAtribuido) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private static String[] valoresDeOrdemNoDominio(Psr psr, ArrayList<String> solution, String valorNaoAtribuido) {
+	private static List<Alocacao> valoresDeOrdemNoDominio(PSR psr, Map<Alocacao, Pessoa> solution, Pessoa valorNaoAtribuido) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private static String selecionarVariavelNaoAtribuida(Psr psr) {
-		// TODO Auto-generated method stub
+	private static Pessoa selecionarVariavelNaoAtribuida(PSR psr) {
+		
 		return null;
 	}
 
 	
-	
-	public static ArrayList<Alocacao> lerEntrada() {
+	public static ArrayList<Pessoa> lerEntrada() {
 		
 		File file = new File("/home/lucasemanoel/projects/workspace-spring-tool-suite-4-4.18.0.RELEASE/BombeirosCSP/src/main/entrada_1.txt");
-		ArrayList<Alocacao> alocacoes = new ArrayList<Alocacao>();
+		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
 		String l = "";
 		
 		try(FileReader fileReader = new FileReader(file);
@@ -97,11 +86,11 @@ public class Solution {
 			while( (l = bf.readLine()) != null) {
 				
 				String[] partes = l.split(",");
-				Alocacao aux = new Alocacao(partes[0], partes[1]);
-				alocacoes.add(aux);
+				Pessoa aux = new Pessoa(partes[0], partes[1]);
+				pessoas.add(aux);
 			}
 			
-			return alocacoes;
+			return pessoas;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
