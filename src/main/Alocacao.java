@@ -5,15 +5,15 @@ import java.util.Objects;
 public class Alocacao {
 	private String dia;
 	private String local;
-	private Integer horario; // 1 ou 2
+	private Integer turno; // 1 ou 2
 	
 	public Alocacao() {}
 	
-	public Alocacao(String dia, String local, Integer horario) {
+	public Alocacao(String dia, String local, Integer turno) {
 		super();
 		this.dia = dia;
 		this.local = local;
-		this.horario = horario;
+		this.turno = turno;
 	}
 
 	public String getDia() {
@@ -32,17 +32,17 @@ public class Alocacao {
 		this.local = local;
 	}
 
-	public Integer getHorario() {
-		return horario;
+	public Integer getTurno() {
+		return turno;
 	}
 
-	public void setHorario(Integer horario) {
-		this.horario = horario;
+	public void setTurno(Integer horario) {
+		this.turno = horario;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dia, horario, local);
+		return Objects.hash(dia, turno, local);
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class Alocacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Alocacao other = (Alocacao) obj;
-		return Objects.equals(dia, other.dia) && Objects.equals(horario, other.horario)
+		return Objects.equals(dia, other.dia) && Objects.equals(turno, other.turno)
 				&& Objects.equals(local, other.local);
 	}
 
 	@Override
 	public String toString() {
-		return "Alocacao [dia=" + dia + ", local=" + local + ", horario=" + horario + "]";
+		return "Alocacao [dia=" + dia + ", local=" + local + ", horario=" + turno + "]";
 	}
 	
 }
