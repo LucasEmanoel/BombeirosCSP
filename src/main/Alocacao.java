@@ -3,47 +3,42 @@ package main;
 import java.util.Objects;
 
 public class Alocacao {
+	private String area;
+	private int horario;
 	private String dia;
-	private String local;
-	private Integer turno; // 1 ou 2
 	
-	public Alocacao() {}
-	
-	public Alocacao(String dia, String local, Integer turno) {
-		super();
+	public Alocacao(String area, int horario, String dia) {
+		this.area = area;
+		this.horario = horario;
 		this.dia = dia;
-		this.local = local;
-		this.turno = turno;
 	}
+	
 
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public int getHorario() {
+		return horario;
+	}
+	public void setHorario(int horario) {
+		this.horario = horario;
+	}
 	public String getDia() {
 		return dia;
 	}
-
 	public void setDia(String dia) {
 		this.dia = dia;
 	}
 
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
-	public Integer getTurno() {
-		return turno;
-	}
-
-	public void setTurno(Integer horario) {
-		this.turno = horario;
-	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(dia, turno, local);
+		return Objects.hash(area, dia, horario);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -54,13 +49,10 @@ public class Alocacao {
 		if (getClass() != obj.getClass())
 			return false;
 		Alocacao other = (Alocacao) obj;
-		return Objects.equals(dia, other.dia) && Objects.equals(turno, other.turno)
-				&& Objects.equals(local, other.local);
-	}
-
-	@Override
-	public String toString() {
-		return "Alocacao [dia=" + dia + ", local=" + local + ", horario=" + turno + "]";
+		return Objects.equals(area, other.area) && Objects.equals(dia, other.dia) && horario == other.horario;
 	}
 	
+	
+	
+
 }

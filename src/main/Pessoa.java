@@ -1,48 +1,47 @@
 package main;
 
-import java.util.Objects;
-
 public class Pessoa {
-	private String funcionario;
-	private String dias;
+	private String name;
+	private int servicesQtd;
+	private int assignedCount = 0;
 	
-	public Pessoa() {}
+	Pessoa(){}
 	
-	public Pessoa(String funcionario, String horario) {
-		super();
-		this.funcionario = funcionario;
-		this.dias = horario;
+	Pessoa(String name, int servicesQtd){
+		this.name = name;
+		this.servicesQtd = servicesQtd;
 	}
-	public String getFuncionario() {
-		return funcionario;
-	}
-	public void setFuncionario(String funcionario) {
-		this.funcionario = funcionario;
-	}
-	public String getDias() {
-		return dias;
-	}
-	public void setDias(String dias) {
-		this.dias = dias;
+	
+	Pessoa(String name, String servicesQtd){
+		this.name = name;
+		this.servicesQtd = Integer.parseInt(servicesQtd.strip());
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(funcionario, dias);
+	public String getName() {
+		return name;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pessoa other = (Pessoa) obj;
-		return Objects.equals(funcionario, other.funcionario) && Objects.equals(dias, other.dias);
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	public int getServicesQtd() {
+		return servicesQtd;
+	}
+
+	public void setServicesQtd(int servicesQtd) {
+		this.servicesQtd = servicesQtd;
+	}
 	
-	
+	 public int getAssignedCount() {
+	        return assignedCount;
+    }
+
+    public void incrementAssignedCount() {
+        this.assignedCount++;
+    }
+
+    public void decrementAssignedCount() {
+        this.assignedCount--;
+    }
 }
