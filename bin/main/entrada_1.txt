@@ -2,7 +2,7 @@ Juliane__, 0
 Fernanda_, 1
 Bruna____, 1
 Ricardo__, 0
-João_____, 2
+Joï¿½o_____, 2
 Tatiane__, 3
 Eduardo__, 1
 Rodrigo__, 0
@@ -19,14 +19,14 @@ Vanessa__, 2
 Aline____, 1
 Diego____, 1
 Gabriel__, 0
-André____, 2
+Andrï¿½____, 2
 Gabriela_, 1
 Rafaela__, 1
 Carla____, 0
 Renata___, 2
 Felipe___, 1
 Juliana__, 1
-Patrícia_, 1
+Patrï¿½cia_, 1
 Fernando_, 0
 Eliane___, 3
 Henrique_, 1

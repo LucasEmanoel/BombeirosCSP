@@ -24,12 +24,12 @@ public class CSP {
 		
 		for (Pessoa valor : this.valoresOrdemDominio(variavel, this)) {
 			if(isValidAssignment(valor, atribuicao)) {
-				atribuicao.put(variavel, valor);
+				atribuicao.put(variavel,valor);
 				valor.incrementAssignedCount();
 				//remover do dominio se valor >= limite
 				
 				if(valor.getAssignedCount() >= valor.getServicesQtd()) {
-					this.removePessoadoDominio(valor);
+					this.removePessoaDominio(valor, atribuicao);
 				}
 				
 				if(valorEhConsistenteAtribuicao(this, atribuicao)) {
@@ -42,7 +42,7 @@ public class CSP {
 				
 				atribuicao.remove(variavel);
 				valor.decrementAssignedCount();
-				this.addPessoadoDominio(valor);
+				this.addPessoaDominio(valor, atribuicao);
 
 			}
 		}
@@ -50,19 +50,28 @@ public class CSP {
 		return null;
 	}
 	
-	private void removePessoadoDominio(Pessoa valor) {
+	private void removePessoaDominio(Pessoa valor, HashMap<Alocacao, Pessoa> atribuicao) {
 		for (Map.Entry<Alocacao, List<Pessoa>> entry : dominio.entrySet()) {
-		    List<Pessoa> pessoasList = entry.getValue();
-		    
-		    pessoasList.remove(valor);
+			Alocacao alocacao = entry.getKey();
+	        List<Pessoa> pessoasList = entry.getValue();
+	        
+	        // Remove a pessoa apenas das alocações não atribuídas
+	        if (!atribuicao.containsKey(alocacao)) {
+	            pessoasList.remove(valor);
+	        }
 		}
 	}
 	
-	private void addPessoadoDominio(Pessoa valor) {
+
+	private void addPessoaDominio(Pessoa valor, HashMap<Alocacao, Pessoa> atribuicao) {
 		for (Map.Entry<Alocacao, List<Pessoa>> entry : dominio.entrySet()) {
-		    List<Pessoa> pessoasList = entry.getValue();
-		    
-		    pessoasList.add(valor);
+			Alocacao alocacao = entry.getKey();
+	        List<Pessoa> pessoasList = entry.getValue();
+	        
+	        // add a pessoa apenas das alocações não atribuídas
+	        if (!atribuicao.containsKey(alocacao)) {
+	            pessoasList.add(valor);
+	        }
 		}
 	}
 	
